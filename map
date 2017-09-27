@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+	<style type="text/css" media="screen">
+    canvas, img { display:block; margin:1em auto; border:1px solid black; }
+    canvas { background:url("mapfinal.png") }
+  </style>
+  </head>
+  <body background="background.png">
+  
+    <center><canvas id="myCanvas" width="3800" height="3800"></canvas>
+    <script>
+
+      function writeMessage(canvas, message, message1) {
+        var context = canvas.getContext('2d');
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.font = '100pt arial italic';
+        context.fillStyle = 'orange';
+        context.fillText(message, 3350, 2015);
+		context.fillText(message1, 3350, 2215);
+      }
+      function getMousePos(canvas, evt) {
+        var rect = canvas.getBoundingClientRect();
+        return {
+          x: evt.clientX - rect.left,
+          y: evt.clientY - rect.top
+        };
+      }
+      var canvas = document.getElementById('myCanvas');
+      var context = canvas.getContext('2d');
+
+      canvas.addEventListener('mousemove', function(evt) {
+        var mousePos = getMousePos(canvas, evt);
+        var message =  'x  '+ (mousePos.x - 1900)*2.081;
+		var message1 = 'z  ' + (-mousePos.y + 1900)*2.081;
+        writeMessage(canvas, message, message1);
+      }, false);
+    </script></center>
+  </body>
+</html>
